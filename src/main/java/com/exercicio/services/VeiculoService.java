@@ -43,6 +43,17 @@ validarVeiculo(dto);
 Veiculo obj = new Veiculo(dto);
 return veiculoRepository.save(obj);
     }
+
+    public Veiculo update(Long id, VeiculoDTO objDto){
+        objDto.setId(id);
+        Veiculo oldObj = findById(id);
+        oldObj = new Veiculo(objDto);
+        return veiculoRepository.save(oldObj);
+    }
+    public void delete(Long id){
+        Veiculo obj = findById(id);
+        veiculoRepository.deleteById(id);
+    }
 }
 
 

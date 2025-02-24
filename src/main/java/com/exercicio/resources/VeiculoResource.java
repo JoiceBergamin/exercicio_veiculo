@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -41,4 +42,15 @@ public class VeiculoResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(veiculo.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<VeiculoDTO> update(@PathVariable Long id, @Valid @RequestBody VeiculoDTO objDto){
+        Veiculo Obj = veiculoService.update(id, objDto);
+        return ResponseEntity.ok().body(new VeiculoDTO(Obj));
+    }
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<VeiculoDTO> delete(@PathVariable Long id){
+        veiculoService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
+
