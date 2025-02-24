@@ -1,11 +1,13 @@
 package com.exercicio.services;
 
+import com.exercicio.models.Veiculo;
 import com.exercicio.models.dtos.VeiculoDTO;
 import com.exercicio.repositories.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +18,15 @@ public class VeiculoService {
     public List<VeiculoDTO> findAll(){
 //repository ta buscando todos os registros de veiculo, retorna uma lista de objetos Veiculo e convertendo para stream
         return veiculoRepository.findAll().stream().map(obj -> new VeiculoDTO(obj)).collect(Collectors.toList());
+    }
+    public Veiculo findById(Long id){
+        Optional<Veiculo> obj = veiculoRepository.findById(id);
+        return obj.orElse(null);
+    }
+
+    public Veiculo findByCpfProprietario(String cpfProprietario){
+        Optional<Veiculo> obj = veiculoRepository.findByCpfProprietario(cpfProprietario);
+        return obj.orElse(null);
     }
 }
 
